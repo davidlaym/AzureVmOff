@@ -2,8 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="cl.lay.azurevmoff.activities.AccountListActivity" >
     
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+
+
+    <item
+        android:title="Add"
+        android:id="@+id/action_add"
+        android:icon="@android:drawable/ic_input_add"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:showAsAction="always"/>
 </menu>

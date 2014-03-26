@@ -3,6 +3,7 @@ package cl.lay.azurevmoff.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -78,9 +80,21 @@ public class RegisterAccountActivity extends Activity {
             }
         });
 
-
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                finish();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -140,10 +154,10 @@ public class RegisterAccountActivity extends Activity {
         try {
             if (TextUtils.isEmpty(certLocation))
                 return false;
-            File file= new File(certLocation);
+            File file = new File(certLocation);
             return file.exists();
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
