@@ -1,6 +1,7 @@
 package cl.lay.azurevmoff.activities;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +12,12 @@ import android.widget.Toast;
 import java.util.List;
 
 import cl.lay.azurevmoff.R;
+import cl.lay.azurevmoff.adapters.AccountAdapter;
 import cl.lay.azurevmoff.models.AccountModel;
 import cl.lay.azurevmoff.repositories.AccountRepository;
 
 
-public class AccountListActivity extends Activity {
+public class AccountListActivity extends ListActivity {
 
     private AccountRepository repo;
 
@@ -25,6 +27,16 @@ public class AccountListActivity extends Activity {
         setContentView(R.layout.activity_account_list);
         repo = new AccountRepository(this);
 
+        refreshAccounts();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshAccounts();
+    }
+
+    private void refreshAccounts() {
         List<AccountModel> accounts = repo.listAccounts();
         if(accounts.isEmpty())
         {
@@ -36,9 +48,10 @@ public class AccountListActivity extends Activity {
             Intent i = new Intent(this, RegisterAccountActivity.class);
             startActivity(i);
         }
+        else {
+            setListAdapter(new AccountAdapter(this, accounts));
+        }
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
