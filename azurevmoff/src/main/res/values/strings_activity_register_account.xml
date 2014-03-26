@@ -1,0 +1,9 @@
+<resources>
+        <string name="title_activity_register_account">Register Account</string>
+        <string name="prompt_account_id">Account Id</string>
+        <string name="prompt_cert_location">Certificate Location</string>
+        <string name="prompt_cert_password">Certificate password</string>
+        <string name="label_add_account">Save</string>
+
+
+</resources>
