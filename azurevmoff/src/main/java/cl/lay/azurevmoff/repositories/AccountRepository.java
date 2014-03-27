@@ -48,9 +48,13 @@ public class AccountRepository {
     private ContentValues accountToContentValues(AccountModel model){
         ContentValues newValues = new ContentValues();
 
-        newValues.put("account_id", model.getmAccountId());
-        newValues.put("cert_password",model.getmCertPassword());
-        newValues.put("cert_location",model.getmCertLocation());
+        newValues.put("account_id", model.getAccountId());
+        newValues.put("cert_password",model.getCertPassword());
+        newValues.put("cert_location",model.getCertLocation());
+        newValues.put("subscription_name",model.getSubscriptionName());
+        newValues.put("subscription_status",model.getSubscriptionState());
+        newValues.put("account_admin_email",model.getAdministratorEmail());
+
         return newValues;
     }
 

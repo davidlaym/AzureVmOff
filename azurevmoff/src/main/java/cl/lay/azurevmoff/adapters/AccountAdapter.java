@@ -33,8 +33,8 @@ public class AccountAdapter  extends ArrayAdapter<AccountModel> {
         TextView accountTextView = (TextView) rowView.findViewById(R.id.accountId);
         TextView certLocationTextView = (TextView) rowView.findViewById(R.id.certLocation);
 
-        accountTextView.setText(thisModel.getmAccountId());
-        certLocationTextView.setText(thisModel.getmCertLocation());
+        accountTextView.setText(thisModel.getAccountId());
+        certLocationTextView.setText(thisModel.getCertLocation());
 
 
         return rowView;

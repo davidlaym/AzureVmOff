@@ -1,40 +1,67 @@
 package cl.lay.azurevmoff.models;
 
 public class AccountModel {
-    int mRecordId;
-    String mAccountId;
-    String mCertLocation;
-    String mCertPassword;
+    int recordId;
+    String accountId;
+    String certLocation;
+    String certPassword;
+    String subscriptionName;
+    String subscriptionState;
+    String administratorEmail;
 
-    public int getmRecordId() {
-        return mRecordId;
+    public String getSubscriptionName() {
+        return subscriptionName;
+    }
+
+    public void setSubscriptionName(String subscriptionName) {
+        this.subscriptionName = subscriptionName;
+    }
+
+    public String getSubscriptionState() {
+        return subscriptionState;
+    }
+
+    public void setSubscriptionStatus(String subscriptionState) {
+        this.subscriptionState = subscriptionState;
+    }
+
+    public String getAdministratorEmail() {
+        return administratorEmail;
+    }
+
+    public void setAdministratorEmail(String administratorEmail) {
+        this.administratorEmail = administratorEmail;
+    }
+
+    public int getRecordId() {
+        return recordId;
     }
 
     public void setRecordId(int mRecordId) {
-        this.mRecordId = mRecordId;
+        this.recordId = mRecordId;
     }
 
-    public String getmAccountId() {
-        return mAccountId;
+    public String getAccountId() {
+        return accountId;
     }
 
     public void setAccountId(String mAccountId) {
-        this.mAccountId = mAccountId;
+        this.accountId = mAccountId;
     }
 
-    public String getmCertLocation() {
-        return mCertLocation;
+    public String getCertLocation() {
+        return certLocation;
     }
 
     public void setCertLocation(String mCertLocation) {
-        this.mCertLocation = mCertLocation;
+        this.certLocation = mCertLocation;
     }
 
-    public String getmCertPassword() {
-        return mCertPassword;
+    public String getCertPassword() {
+        return certPassword;
     }
 
     public void setCertPassword(String mCertPassword) {
-        this.mCertPassword = mCertPassword;
+        this.certPassword = mCertPassword;
     }
 }

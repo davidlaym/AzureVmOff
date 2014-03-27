@@ -20,31 +20,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
-import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 
 import cl.lay.azurevmoff.ApplicationState;
 import cl.lay.azurevmoff.R;
 import cl.lay.azurevmoff.models.AccountModel;
+import cl.lay.azurevmoff.models.AzureSubscriptionModel;
 import cl.lay.azurevmoff.repositories.AccountRepository;
 import cl.lay.azurevmoff.services.AzureManagementApiService;
 import cl.lay.azurevmoff.services.KeyStoreService;
 
-
-/**
- * A login screen that offers login via email/password.
- */
 public class RegisterAccountActivity extends Activity {
 
-
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
     private ValidateCertPasswordTask mCertPasswordTask = null;
     private ValidateAccountTask mAccountTask = null;
     protected RegisterAccountActivity activityReference = null;
@@ -254,7 +242,7 @@ public class RegisterAccountActivity extends Activity {
         }
     }
 
-    public class ValidateAccountTask extends AsyncTask<Void, Void, Boolean> {
+    public class ValidateAccountTask extends AsyncTask<Void, Void, AzureSubscriptionModel> {
 
         private final AzureManagementApiService azureService;
         private KeyStoreService keyStoreService;
@@ -272,24 +260,29 @@ public class RegisterAccountActivity extends Activity {
         }
 
         @Override
-        protected Boolean doInBackground(Void... voids) {
+        protected AzureSubscriptionModel doInBackground(Void... voids) {
 
             SSLContext sslContext = keyStoreService.generateSSLContext(certPassword);
-            return azureService.testConnection(sslContext, accountId);
+            AzureSubscriptionModel subscriptionDetails =  azureService.fetchSubscriptionDetails(sslContext, accountId);
+
+            return subscriptionDetails;
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final AzureSubscriptionModel subscrtiptionDetails) {
             mAccountTask = null;
             showProgress(false);
 
-            if (success) {
+            if (subscrtiptionDetails!=null) {
                 Context context = activityReference.getApplicationContext();
                 AccountRepository accountRepository = ApplicationState.getInstance().getAccountRepository(context);
                 AccountModel accountModel = new AccountModel();
                 accountModel.setAccountId(accountId);
                 accountModel.setCertLocation(certLocation);
                 accountModel.setCertLocation(certPassword);
+                accountModel.setSubscriptionName(subscrtiptionDetails.getSubscriptionName());
+                accountModel.setSubscriptionStatus(subscrtiptionDetails.getSubscriptionStatus());
+                accountModel.setAdministratorEmail(subscrtiptionDetails.getAccountAdminLiveEmail());
                 accountRepository.createAccount(accountModel);
 
                 String text = "Account registered.";
