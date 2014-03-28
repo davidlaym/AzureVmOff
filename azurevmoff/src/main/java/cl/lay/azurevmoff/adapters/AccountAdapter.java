@@ -39,4 +39,6 @@ public class AccountAdapter  extends ArrayAdapter<AccountModel> {
 
         return rowView;
     }
+
+
 }

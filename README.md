@@ -13,3 +13,4 @@
 ## Links to documentation of Android
 
 - https://developer.android.com/training/basics/network-ops/xml.html (parsing xml)
+- http://www.dreamincode.net/forums/topic/190013-creating-simple-file-chooser/ (file chooser)

@@ -22,7 +22,7 @@ public class AccountRepository {
 
     public List<AccountModel> listAccounts() {
         List<AccountModel> accounts = new ArrayList<AccountModel>();
-        String [] columns = new String[] {"id", "account_id","cert_location","cert_password"};
+        String[] columns = new String[]{"id", "account_id", "cert_location", "cert_password"};
 
         Cursor cursor = db.query(AzureVmOffDB.TABLE_ACCOUNTS,
                 columns, null, null, null, null, null);
@@ -38,22 +38,22 @@ public class AccountRepository {
         return accounts;
     }
 
-    public void createAccount(AccountModel newAccount){
+    public void createAccount(AccountModel newAccount) {
 
         ContentValues newValues = accountToContentValues(newAccount);
         db.insert(AzureVmOffDB.TABLE_ACCOUNTS, null, newValues);
 
     }
 
-    private ContentValues accountToContentValues(AccountModel model){
+    private ContentValues accountToContentValues(AccountModel model) {
         ContentValues newValues = new ContentValues();
 
         newValues.put("account_id", model.getAccountId());
-        newValues.put("cert_password",model.getCertPassword());
-        newValues.put("cert_location",model.getCertLocation());
-        newValues.put("subscription_name",model.getSubscriptionName());
-        newValues.put("subscription_status",model.getSubscriptionState());
-        newValues.put("account_admin_email",model.getAdministratorEmail());
+        newValues.put("cert_password", model.getCertPassword());
+        newValues.put("cert_location", model.getCertLocation());
+        newValues.put("subscription_name", model.getSubscriptionName());
+        newValues.put("subscription_status", model.getSubscriptionState());
+        newValues.put("account_admin_email", model.getAdministratorEmail());
 
         return newValues;
     }
@@ -67,5 +67,13 @@ public class AccountRepository {
         comment.setCertPassword(cursor.getString(3));
 
         return comment;
+    }
+
+    public void deleteAccount(AccountModel account) {
+        try {
+            db.delete(AzureVmOffDB.TABLE_ACCOUNTS, "account_id='"+account.getAccountId()+"'",null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
